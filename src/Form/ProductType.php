@@ -2,6 +2,9 @@
 
 namespace App\Form;
 
+use App\Entity\File;
+use App\Entity\Product;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -11,14 +14,24 @@ class ProductType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('field_name')
+            ->add('title')
+            ->add('price')
+            ->add('freeNumber')
+            ->add('number')
+            ->add('originalPrice')
+            ->add('isPopular')
+            ->add('file', EntityType::class, [
+                'class' => File::class,
+                'choice_label' => 'id',
+            ])
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            // Configure your form options here
+            // 'data_class' => Product::class,
+            // 'allow_extra_fields' => true
         ]);
     }
 }
